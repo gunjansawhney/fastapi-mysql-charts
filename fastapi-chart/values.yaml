@@ -1,6 +1,6 @@
 fastapi:
   enabled: true
-  image: gunjan/fastapi-app:latest
+  image: gunjan/fastapi-app:v2
   replicaCount: 1
   servicePort: 8000
   resources:
@@ -8,6 +8,11 @@ fastapi:
       cpu: "100m"
     limits:
       cpu: "200m"
+  sidecar:
+    enabled: true
+    name: log-sidecar
+    image: busybox
+    command: ["sh", "-c", "tail -n+1 -F /app/logs/app.log"]
 
 mysql:
   enabled: true

@@ -22,6 +22,9 @@ spec:
             - containerPort: {{ .Values.fastapi.servicePort }}
           resources:
             {{- toYaml .Values.fastapi.resources | nindent 12 }}
+          volumeMounts:
+            - name: log-volume
+              mountPath: /app/logs
           livenessProbe:
             httpGet:
               path: /health
@@ -34,4 +37,16 @@ spec:
               port: {{ .Values.fastapi.servicePort }}
             initialDelaySeconds: 5
             periodSeconds: 5
+        {{- if .Values.fastapi.sidecar.enabled }}
+        - name: {{ .Values.fastapi.sidecar.name }}
+          image: {{ .Values.fastapi.sidecar.image }}
+          command: {{ toJson .Values.fastapi.sidecar.command }}
+          volumeMounts:
+            - name: log-volume
+              mountPath: /app/logs
+        {{- end }}
+
+      volumes:
+        - name: log-volume
+          emptyDir: {}
 {{- end }}
