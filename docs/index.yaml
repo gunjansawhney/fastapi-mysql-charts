@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  fastapi-mysql:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-07-25T17:20:15.61534+05:30"
+    description: A Helm chart for deploying FastAPI with MySQL
+    digest: babc4e07f6c3be0fcd53ba8fd949a9d8273ac5a7f806a4fd0a96c582e9865986
+    name: fastapi-mysql
+    type: application
+    urls:
+    - https://gunjansawhney.github.io/fastapi-mysql-charts/fastapi-mysql-0.2.0.tgz
+    version: 0.2.0
+generated: "2025-07-25T17:20:15.615058+05:30"
