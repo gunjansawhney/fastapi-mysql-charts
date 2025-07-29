@@ -30,7 +30,7 @@ jobs:
         helm package fastapi-chart --destination artifacts
 
     - name: Upload Helm Chart Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: fastapi-chart-package
         path: artifacts/*.tgz
