@@ -1,0 +1,37 @@
+{{- if .Values.fastapi.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi
+  labels:
+    {{- include "fastapi-mysql.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.fastapi.replicaCount }}
+  selector:
+    matchLabels:
+      app: fastapi
+  template:
+    metadata:
+      labels:
+        app: fastapi
+    spec:
+      containers:
+        - name: fastapi
+          image: {{ .Values.fastapi.image }}
+          ports:
+            - containerPort: {{ .Values.fastapi.servicePort }}
+          resources:
+            {{- toYaml .Values.fastapi.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.fastapi.servicePort }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.fastapi.servicePort }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+{{- end }}

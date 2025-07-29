@@ -1,0 +1,12 @@
+{{- if .Values.fastapi.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi
+spec:
+  selector:
+    app: fastapi
+  ports:
+    - port: {{ .Values.fastapi.servicePort }}
+      targetPort: {{ .Values.fastapi.servicePort }}
+{{- end }}

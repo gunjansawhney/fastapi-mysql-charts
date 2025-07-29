@@ -1,0 +1,20 @@
+fastapi:
+  enabled: true
+  image: gunjan/fastapi-app:latest
+  replicaCount: 1
+  servicePort: 8000
+  resources:
+    requests:
+      cpu: "100m"
+    limits:
+      cpu: "200m"
+
+mysql:
+  enabled: true
+  rootPassword: root
+  database: testdb
+  storage: 1Gi
+
+ingress:
+  enabled: true
+  host: fastapi.local
