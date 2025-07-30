@@ -34,6 +34,16 @@ spec:
               mountPath: /var/lib/mysql
             - name: init-script
               mountPath: /docker-entrypoint-initdb.d
+        {{- if .Values.mysql.exporter.enabled }}
+        - name: mysql-exporter
+          image: {{ .Values.mysql.exporter.image }}
+          ports:
+            - containerPort: {{ .Values.mysql.exporter.port }}
+          env:
+            - name: DATA_SOURCE_NAME
+              value: "{{ .Values.mysql.exporter.dataSource.user }}:{{ .Values.mysql.exporter.dataSource.password }}@(localhost:3306)/"
+        {{- end }}
+        
       volumes:
         - name: mysql-storage
           persistentVolumeClaim:

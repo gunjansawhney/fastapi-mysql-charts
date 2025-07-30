@@ -19,6 +19,13 @@ mysql:
   rootPassword: root
   database: testdb
   storage: 1Gi
+  exporter:
+    enabled: true
+    image: prom/mysqld-exporter:v0.14.0
+    port: 9104
+    dataSource:
+      user: root
+      password: root
 
 ingress:
   enabled: true
