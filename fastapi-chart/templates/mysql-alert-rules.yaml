@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: mysql-alert-rules
+  namespace: monitoring
+  labels:
+    release: kube-prometheus
+spec:
+  groups:
+    - name: mysql.rules
+      rules:
+        - alert: MySQLExporterDown
+          expr: up{job="mysql-exporter"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "MySQL Exporter is Down"
+            description: "No metrics received from MySQL exporter for 1 minute."
