@@ -1,6 +1,6 @@
 fastapi:
   enabled: true
-  image: gunjan/fastapi-app:v2
+  image: gunjan/fastapi-app:v3
   replicaCount: 1
   servicePort: 8000
   resources:
